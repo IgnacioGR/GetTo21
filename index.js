@@ -64,7 +64,7 @@ function getNewCard() {
 
 function stopGame() {
 	if (score === 21) {
-		message.textContent = "Nice. You got BlackJack";
+		message.textContent = "Nice. You got to 21";
 	} else if (score > 21) {
 		message.textContent = "You lost. Better luck next time";
 	} else {
