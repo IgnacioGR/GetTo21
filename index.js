@@ -2,12 +2,17 @@ let firstCard;
 let secondCard;
 let score;
 let message = document.getElementById("message-el");
-const textContainer = document.getElementById("text-container");
+const buttonContainer = document.getElementById("button-container");
 let cardCount = document.getElementById("card-count");
 let scoreCount = document.getElementById("score-count");
 let newCard;
 let getCardButton;
 let startButton;
+let player = {
+	name: "Guest",
+	chips: 0,
+};
+let chipCount = document.getElementById("player");
 
 function getRandomIntInclusive(min, max) {
 	min = Math.ceil(min);
@@ -21,6 +26,11 @@ function getRandomIntInclusive(min, max) {
 	return number;
 }
 
+function chipUpdater(chips) {
+	player.chips += chips;
+	chipCount.textContent = player.name + ": " + player.chips;
+}
+
 function startGame() {
 	// resetting game state
 	firstCard = getRandomIntInclusive(1, 13);
@@ -29,9 +39,13 @@ function startGame() {
 	message.textContent = "Good Luck My Friend";
 	// resetting game state
 
+	// taking chips to start the game
+	chipUpdater(-1);
+	// taking chips to start the game
+
 	// creating getCard button
 	getCardButton = document.createElement("button");
-	textContainer.appendChild(getCardButton);
+	buttonContainer.appendChild(getCardButton);
 	getCardButton.setAttribute("id", "get-card");
 	getCardButton.setAttribute("onclick", "getNewCard()");
 	getCardButton.textContent = "Get Card";
@@ -71,13 +85,29 @@ function getNewCard() {
 function stopGame() {
 	if (score === 21) {
 		message.textContent = "Nice. You got to 21";
+		chipUpdater(10);
 	} else if (score > 21) {
 		message.textContent = "You lost. Better luck next time";
+		chipUpdater(-(score - 21));
 	} else {
 		message.textContent = "You were " + (21 - score) + " off of getting to 21";
+		chipUpdater(-(21 - score));
 	}
 
 	getCardButton.parentNode.removeChild(getCardButton);
 	startButton.textContent = "Start Game";
 	startButton.setAttribute("onclick", "startGame()");
 }
+
+// getting players name
+player.name = window.prompt("Enter Your Name For This Session");
+
+if (player.name === null || player.name === " " || player.name === "") {
+	player.name = "Guest";
+}
+console.log(player.name);
+// getting players name
+
+// creating player chip count
+chipUpdater(100);
+// creating player chip count
