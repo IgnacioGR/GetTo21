@@ -12,13 +12,19 @@ let startButton;
 function getRandomIntInclusive(min, max) {
 	min = Math.ceil(min);
 	max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+	number = Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+	if (number === 1) {
+		return 11;
+	} else if (number > 10) {
+		return 10;
+	}
+	return number;
 }
 
 function startGame() {
 	// resetting game state
-	firstCard = getRandomIntInclusive(1, 11);
-	secondCard = getRandomIntInclusive(1, 11);
+	firstCard = getRandomIntInclusive(1, 13);
+	secondCard = getRandomIntInclusive(1, 13);
 	score = firstCard + secondCard;
 	message.textContent = "Good Luck My Friend";
 	// resetting game state
@@ -50,7 +56,7 @@ function startGame() {
 }
 
 function getNewCard() {
-	newCard = getRandomIntInclusive(1, 11);
+	newCard = getRandomIntInclusive(1, 13);
 	score += newCard;
 	scoreCount.textContent = "Your Score: " + score;
 	cardCount.textContent += " " + newCard;
